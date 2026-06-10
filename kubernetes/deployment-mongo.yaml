@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskmanager-mongo
+  labels:
+    app: taskmanager-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskmanager-mongo
+  template:
+    metadata:
+      labels:
+        app: taskmanager-mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:7
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongo-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc

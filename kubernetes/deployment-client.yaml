@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskmanager-client
+  labels:
+    app: taskmanager-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: taskmanager-client
+  template:
+    metadata:
+      labels:
+        app: taskmanager-client
+    spec:
+      containers:
+      - name: client
+        image: zsthesev/taskmanager-client:v1
+        ports:
+        - containerPort: 80
